@@ -15,7 +15,6 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
   std_msgs
-  vision_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -51,6 +50,12 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * uncomment the generate_messages entry below
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
+add_message_files(
+  FILES
+  BBox.msg
+  BBoxes.msg
+)
+
 ## Generate messages in the 'msg' folder
 # add_message_files(
 #   FILES
@@ -74,10 +79,11 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate added messages and services with any dependencies listed here
 
-# generate_messages(
-#   DEPENDENCIES
-#   sensor_msgs#   std_msgs#   vision_msgs
-# )
+ generate_messages(
+   DEPENDENCIES
+   sensor_msgs
+   std_msgs   
+ )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -99,13 +105,7 @@ find_package(catkin REQUIRED COMPONENTS
 #   cfg/DynReconf2.cfg
 # )
 
-add_message_files(
-   FILES
-   BBox.msg
-   BBoxes.msg
-)
 
-generate_messages(DEPENDENCIES std_msgs vision_msgs)
 
 ###################################
 ## catkin specific configuration ##

@@ -1,10 +1,14 @@
 <launch>
 
     <arg name="img_topic" default="/cam_pub/image_raw" />
-    <arg name="model_pt" default="yolov8n.pt" />
+    <arg name="model_name" default="yolov8n.pt" />
+    <arg name="show" default="false" />
+    <arg name="nth_image" default="5" />
     
     <param name="img_topic" type="string" value="$(arg img_topic)" />
-    <param name="model_pt" type="string" value="$(arg model_pt)" />
+    <param name="model_name" type="string" value="$(find yolov8ros_pkg)/models/$(arg model_name)" />
+    <param name="show" type="bool" value="$(arg show)" />
+    <param name="nth_image" type="int" value="$(arg nth_image)" />
     
     <node name="yoloros_detect_node" pkg="yolov8ros_pkg" type="detect.py" required="true" output="screen" />
     
