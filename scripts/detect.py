@@ -13,7 +13,7 @@
 
 import rospy
 import cv2 as cv
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CompressedImage
 from cv_bridge import CvBridge, CvBridgeError
 from ultralytics import YOLO
 from yolov8ros_pkg.msg import BBox, BBoxes
@@ -85,6 +85,10 @@ def image_cb(img):
     if(show): #display the image
         cv.imshow('Detection Window', cv_image)
         cv.waitKey(3)
+        ros_uncompressed = bridge.cv2_to_imgmsg(cv_image, encoding='bgr8')
+        ros_compressed = bridge.cv2_to_compressed_imgmsg(cv_image)
+        image_pub.publish(ros_uncompressed)
+        compress_pub.publish(ros_compressed)
 
     detect_pub.publish(detections)
 
@@ -100,6 +104,8 @@ if __name__ == '__main__':
     nth_image = rospy.get_param('nth_image')
     n = nth_image
     rospy.Subscriber(img_topic, Image, image_cb, queue_size=1)
+    image_pub = rospy.Publisher('predictions/image/image_raw', Image, queue_size=1)
+    compress_pub = rospy.Publisher('predictions/image/compressed', CompressedImage, queue_size=1)
     
     rospy.spin()
 
