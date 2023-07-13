@@ -38,12 +38,18 @@ yolov8ros_pkg/BBox[] boxes: The list of detections in a single frame
 Custom models can be used by placing the .pt file in the models directory, and by setting the launch argument "model_name". <br>
 Example: `roslaunch yolov8ros_pkg yolo_detect.launch model_name:="best.pt"` <br><br>
 
+### Setting the Image Topic
+
 The Image topic name can be set with the "img_topic" argument.<br>
 Example: `roslaunch yolov8ros_pkg yolo_detect.launch img_topic:="/camera/image_raw` <br><br>
+
+### Detection Visualization
 
 A detection window can be included for easy visualization with the "show" argument. <br>
 Example: `roslaunch yolov8ros_pkg yolo_detect.launch show:="true"` <br><br>
 
-The program will predict only on every few frames with the "nth_image" arugment. <br>
+### Skipping Frames
+
+The program will predict only on every few frames with the "nth_image" arugment. Ideal for slower systems. <br>
 Example: `roslaunch yolov8ros_pkg yolo_detect.launch nth_image:="10"` <br><br>
 
